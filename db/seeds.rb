@@ -9,33 +9,70 @@
 # db/seeds.rb
 
 # First, create the categories
-categories = Category.create([
-  { name: "Web Development", description: "Developing websites and web applications" },
-  { name: "Mobile Development", description: "Developing mobile applications" },
-  { name: "Data Science", description: "Analyzing and interpreting complex data" },
-  { name: "Artificial Intelligence", description: "Developing intelligent systems and algorithms" },
-  { name: "Cybersecurity", description: "Protecting computer systems and networks from digital attacks" },
-  { name: "Cloud Computing", description: "Providing computing resources over the internet" },
-  { name: "Networking", description: "Designing and managing computer networks" },
-  { name: "UI/UX Design", description: "Designing user interfaces and experiences" },
-  { name: "Software Testing", description: "Ensuring the quality of software products" },
-  { name: "Project Management", description: "Planning and executing projects" },
-])
+# Seed data for categories table
 
-# Then create the jobs
-30.times do |i|
-  Job.create(
-    title: "Tech Job #{i + 1}",
-    description: "This is the description for Tech Job #{i + 1}",
-    company: "Company #{i + 1}",
-    location: "Location #{i + 1}",
-    category: categories.sample,
-    salary_range: "$#{rand(50_000..150_000)} - $#{rand(150_000..300_000)}",
-    employment_type: ["Full-time", "Part-time", "Contract", "Freelance"].sample,
-    years_of_experience: rand(1..10),
-    education_level: ["High School Diploma", "Bachelor's Degree", "Master's Degree", "PhD"].sample,
-    posted_at: Time.now - rand(1..30).days,
-    expires_at: Time.now + rand(30..90).days,
-    is_active: [true, false].sample,
-  )
-end
+puts "Started seed data"
+
+Category.create(name: "Software Development", description: "Creating software applications and systems")
+Category.create(name: "Data Analysis", description: "Analyzing and interpreting data to make informed decisions")
+Category.create(name: "Marketing", description: "Promoting products and services to customers")
+Category.create(name: "Customer Support", description: "Assisting customers with inquiries and issues")
+
+# Seed data for jobs table
+Job.create(
+  title: "Full Stack Developer",
+  description: "Developing web applications using Ruby on Rails and React",
+  company: "Acme Inc.",
+  location: "New York, NY",
+  category_id: Category.find_by(name: "Software Development").id,
+  salary_range: "$80,000 - $120,000",
+  employment_type: "Full-time",
+  years_of_experience: 3,
+  education_level: 'Bachelor\'s degree',
+  posted_at: Time.now,
+  expires_at: 3.months.from_now,
+)
+
+Job.create(
+  title: "Data Analyst",
+  description: "Analyzing customer data to provide insights for business decisions",
+  company: "Beta Corp.",
+  location: "San Francisco, CA",
+  category_id: Category.find_by(name: "Data Analysis").id,
+  salary_range: "$70,000 - $100,000",
+  employment_type: "Full-time",
+  years_of_experience: 2,
+  education_level: 'Bachelor\'s degree',
+  posted_at: Time.now,
+  expires_at: 1.month.from_now,
+)
+
+Job.create(
+  title: "Social Media Manager",
+  description: "Developing and executing social media marketing strategies",
+  company: "Gamma Inc.",
+  location: "Los Angeles, CA",
+  category_id: Category.find_by(name: "Marketing").id,
+  salary_range: "$50,000 - $70,000",
+  employment_type: "Part-time",
+  years_of_experience: 1,
+  education_level: 'Bachelor\'s degree',
+  posted_at: Time.now,
+  expires_at: 6.months.from_now,
+)
+
+Job.create(
+  title: "Customer Service Representative",
+  description: "Assisting customers with inquiries and resolving issues",
+  company: "Delta Inc.",
+  location: "Chicago, IL",
+  category_id: Category.find_by(name: "Customer Support").id,
+  salary_range: "$30,000 - $40,000",
+  employment_type: "Full-time",
+  years_of_experience: 0,
+  education_level: "High school diploma",
+  posted_at: Time.now,
+  expires_at: 2.months.from_now,
+)
+
+puts "Done seeding"
