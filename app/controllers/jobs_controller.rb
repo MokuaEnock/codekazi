@@ -5,7 +5,7 @@ class JobsController < ApplicationController
     if params[:query].present?
       jobs = Job.search_by_title_and_description(params[:query])
     else
-      @jobs = Job.all
+      jobs = Job.all
     end
 
     render json: jobs
