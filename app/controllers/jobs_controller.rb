@@ -5,9 +5,6 @@ class JobsController < ApplicationController
   def update
   end
 
-  def index
-  end
-
   def destroy
   end
 
@@ -17,7 +14,7 @@ class JobsController < ApplicationController
 
   private
 
-  def job_params 
-    paras.permit(:) 
+  def job_params
+    paras.permit(:)
   end
 end
