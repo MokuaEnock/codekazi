@@ -13,66 +13,37 @@
 
 puts "Started seed data"
 
-Category.create(name: "Software Development", description: "Creating software applications and systems")
-Category.create(name: "Data Analysis", description: "Analyzing and interpreting data to make informed decisions")
-Category.create(name: "Marketing", description: "Promoting products and services to customers")
-Category.create(name: "Customer Support", description: "Assisting customers with inquiries and issues")
+# Create 10 categories
+Category.create([
+  { name: "Software Development", description: "Developing software applications and systems" },
+  { name: "Data Science", description: "Analyzing and interpreting complex data sets" },
+  { name: "Web Development", description: "Building and maintaining websites and web applications" },
+  { name: "Cybersecurity", description: "Protecting computer systems and networks from cyber attacks" },
+  { name: "IT Support", description: "Helping users troubleshoot and resolve technical issues" },
+  { name: "Cloud Computing", description: "Designing and implementing cloud-based solutions" },
+  { name: "Network Administration", description: "Maintaining and optimizing computer networks" },
+  { name: "Database Administration", description: "Managing and securing databases" },
+  { name: "UI/UX Design", description: "Designing user interfaces and user experiences" },
+  { name: "Mobile App Development", description: "Creating mobile applications for iOS and Android" },
+])
+categories = Category.all
 
-# Seed data for jobs table
-Job.create(
-  title: "Full Stack Developer",
-  description: "Developing web applications using Ruby on Rails and React",
-  company: "Acme Inc.",
-  location: "New York, NY",
-  category_id: Category.find_by(name: "Software Development").id,
-  salary_range: "$80,000 - $120,000",
-  employment_type: "Full-time",
-  years_of_experience: 3,
-  education_level: 'Bachelor\'s degree',
-  posted_at: Time.now,
-  expires_at: 3.months.from_now,
-)
+50.times do
+  category = categories.sample
 
-Job.create(
-  title: "Data Analyst",
-  description: "Analyzing customer data to provide insights for business decisions",
-  company: "Beta Corp.",
-  location: "San Francisco, CA",
-  category_id: Category.find_by(name: "Data Analysis").id,
-  salary_range: "$70,000 - $100,000",
-  employment_type: "Full-time",
-  years_of_experience: 2,
-  education_level: 'Bachelor\'s degree',
-  posted_at: Time.now,
-  expires_at: 1.month.from_now,
-)
-
-Job.create(
-  title: "Social Media Manager",
-  description: "Developing and executing social media marketing strategies",
-  company: "Gamma Inc.",
-  location: "Los Angeles, CA",
-  category_id: Category.find_by(name: "Marketing").id,
-  salary_range: "$50,000 - $70,000",
-  employment_type: "Part-time",
-  years_of_experience: 1,
-  education_level: 'Bachelor\'s degree',
-  posted_at: Time.now,
-  expires_at: 6.months.from_now,
-)
-
-Job.create(
-  title: "Customer Service Representative",
-  description: "Assisting customers with inquiries and resolving issues",
-  company: "Delta Inc.",
-  location: "Chicago, IL",
-  category_id: Category.find_by(name: "Customer Support").id,
-  salary_range: "$30,000 - $40,000",
-  employment_type: "Full-time",
-  years_of_experience: 0,
-  education_level: "High school diploma",
-  posted_at: Time.now,
-  expires_at: 2.months.from_now,
-)
+  Job.create(
+    title: Faker::Job.title,
+    description: Faker::Lorem.paragraph(sentence_count: 3),
+    company: Faker::Company.name,
+    location: Faker::Address.city,
+    category_id: category.id,
+    salary_range: "$#{Faker::Number.between(from: 50000, to: 200000)} - $#{Faker::Number.between(from: 200000, to: 500000)}",
+    employment_type: ["Full-time", "Part-time", "Contract"].sample,
+    years_of_experience: Faker::Number.between(from: 1, to: 10),
+    education_level: ["High school diploma", 'Bachelor\'s degree', 'Master\'s degree', "PhD"].sample,
+    posted_at: Faker::Time.between(from: 1.year.ago, to: Time.now),
+    expires_at: Faker::Time.between(from: Time.now, to: 6.months.from_now),
+  )
+end
 
 puts "Done seeding"
