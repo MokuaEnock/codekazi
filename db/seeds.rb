@@ -24,3 +24,22 @@ categories = [
 categories.each do |category|
   Category.create(category)
 end
+
+categories = Category.all
+
+30.times do
+  Job.create(
+    title: Faker::Job.title,
+    description: Faker::Lorem.paragraph,
+    company: Faker::Company.name,
+    location: Faker::Address.city,
+    salary_range: Faker::Job.salary,
+    employment_type: Faker::Job.employment_type,
+    years_of_experience: rand(0..10),
+    education_level: Faker::Job.education_level,
+    posted_at: Time.now - rand(1..10).days,
+    expires_at: Time.now + rand(1..30).days,
+    is_active: true,
+    category: categories.sample,
+  )
+end

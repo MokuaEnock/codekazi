@@ -1,6 +1,6 @@
 class Job < ApplicationRecord
   include PgSearch::Model
-  pd_search_scope :search_by_title_and_description,
+  pg_search_scope :search_by_title_and_description,
                   against: [:title, :description],
                   using: {
                     tsearch: { prefix: true },
@@ -20,4 +20,6 @@ class Job < ApplicationRecord
       education_level,
     ].compact.join(" ")
   end
+
+  has_and_belongs_to_many :categories
 end
