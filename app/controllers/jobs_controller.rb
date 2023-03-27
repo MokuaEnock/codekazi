@@ -2,8 +2,13 @@ class JobsController < ApplicationController
   before_action :set_job, only: [:show, :update, :destroy]
 
   def index
-    jobs = Job.all
-    render json: jobs
+    if params[:query].present?
+      @jobs = Job.search_by_title_and_description(params[:query])
+    else
+      @jobs = Job.all
+    end
+
+    render json: @jobs
   end
 
   def create
