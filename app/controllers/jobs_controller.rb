@@ -40,6 +40,11 @@ class JobsController < ApplicationController
     end
   end
 
+  def latest
+    latest_jobs = Job.order(posted_at: :desc).limit(4)
+    render json: latest_jobs
+  end
+
   private
 
   def set_job
