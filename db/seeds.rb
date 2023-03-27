@@ -8,38 +8,34 @@
 
 # db/seeds.rb
 
-categories = [
-  { name: "Software Development", description: "Creating software applications and systems" },
+# First, create the categories
+categories = Category.create([
+  { name: "Web Development", description: "Developing websites and web applications" },
+  { name: "Mobile Development", description: "Developing mobile applications" },
   { name: "Data Science", description: "Analyzing and interpreting complex data" },
-  { name: "Web Design", description: "Creating visually appealing and functional websites" },
-  { name: "Marketing", description: "Promoting and selling products or services" },
-  { name: "Finance", description: "Managing financial transactions and investments" },
-  { name: "Human Resources", description: "Managing employee recruitment, selection, and training" },
-  { name: "Graphic Design", description: "Creating visual concepts and designs for various media" },
-  { name: "Project Management", description: "Organizing and overseeing projects from start to finish" },
-  { name: "Customer Service", description: "Providing support and assistance to customers" },
-  { name: "Sales", description: "Selling products or services to customers" },
-]
+  { name: "Artificial Intelligence", description: "Developing intelligent systems and algorithms" },
+  { name: "Cybersecurity", description: "Protecting computer systems and networks from digital attacks" },
+  { name: "Cloud Computing", description: "Providing computing resources over the internet" },
+  { name: "Networking", description: "Designing and managing computer networks" },
+  { name: "UI/UX Design", description: "Designing user interfaces and experiences" },
+  { name: "Software Testing", description: "Ensuring the quality of software products" },
+  { name: "Project Management", description: "Planning and executing projects" },
+])
 
-categories.each do |category|
-  Category.create(category)
-end
-
-categories = Category.all
-
-30.times do
+# Then create the jobs
+30.times do |i|
   Job.create(
-    title: Faker::Job.title,
-    description: Faker::Lorem.paragraph,
-    company: Faker::Company.name,
-    location: Faker::Address.city,
-    salary_range: Faker::Job.salary,
-    employment_type: Faker::Job.employment_type,
-    years_of_experience: rand(0..10),
-    education_level: Faker::Job.education_level,
-    posted_at: Time.now - rand(1..10).days,
-    expires_at: Time.now + rand(1..30).days,
-    is_active: true,
+    title: "Tech Job #{i + 1}",
+    description: "This is the description for Tech Job #{i + 1}",
+    company: "Company #{i + 1}",
+    location: "Location #{i + 1}",
     category: categories.sample,
+    salary_range: "$#{rand(50_000..150_000)} - $#{rand(150_000..300_000)}",
+    employment_type: ["Full-time", "Part-time", "Contract", "Freelance"].sample,
+    years_of_experience: rand(1..10),
+    education_level: ["High School Diploma", "Bachelor's Degree", "Master's Degree", "PhD"].sample,
+    posted_at: Time.now - rand(1..30).days,
+    expires_at: Time.now + rand(30..90).days,
+    is_active: [true, false].sample,
   )
 end
