@@ -15,6 +15,10 @@ class CategoriesController < ApplicationController
     render json: @category
   end
 
+  def index
+    render json: Category.all
+  end
+
   def destroy
     @category.destroy
     render json: { message: "Category destroyed successfully" }
