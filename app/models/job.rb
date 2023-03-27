@@ -4,12 +4,13 @@ class Job < ApplicationRecord
                   against: [:title, :description],
                   using: {
                     tsearch: { prefix: true },
+                    gin: { threshold: 0.2 },
                   }
-  before_save :update_searchable_content
+
+  before_validation :update_searchable_content
+  belongs_to :category, touch: true
 
   def update_searchable_content
     self.searchable_content = "#{title} #{description} #{category_id} #{company} #{location}"
   end
-
-  belongs_to :category
 end

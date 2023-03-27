@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :update, :destroy]
+  before_action :set_job, only: [:update, :destroy]
 
   def index
     if params[:query].present?
@@ -21,6 +21,7 @@ class JobsController < ApplicationController
   end
 
   def show
+    @job = Job.find(params[:id])
     render json: @job
   end
 
@@ -41,15 +42,11 @@ class JobsController < ApplicationController
   end
 
   def latest
-    latest_jobs = Job.order(posted_at: :desc).limit(4)
-    render json: latest_jobs
+    @jobs = Job.order(posted_at: :desc).limit(4)
+    render json: @jobs
   end
 
   private
-
-  def set_job
-    @job = Job.find(params[:id])
-  end
 
   def job_params
     params.require(:job).permit(:title, :description, :company, :location, :category_id, :salary_range, :employment_type, :years_of_experience, :education_level, :posted_at, :expires_at, :is_active, :category_id)
