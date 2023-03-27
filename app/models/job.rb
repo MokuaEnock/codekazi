@@ -11,5 +11,5 @@ class Job < ApplicationRecord
     self.searchable_content = "#{title} #{description} #{category_id} #{company} #{location}"
   end
 
-  has_and_belongs_to_many :categories
+  belongs_to :category
 end
