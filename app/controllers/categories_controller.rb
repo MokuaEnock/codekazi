@@ -19,6 +19,12 @@ class CategoriesController < ApplicationController
     render json: Category.all
   end
 
+  def jobs
+    category = Category.find(params[:id])
+    jobs = category.jobs
+    render json: jobs
+  end
+
   def destroy
     @category.destroy
     render json: { message: "Category destroyed successfully" }
