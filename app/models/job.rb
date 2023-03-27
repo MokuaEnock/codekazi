@@ -3,8 +3,7 @@ class Job < ApplicationRecord
   pg_search_scope :search_by_title_and_description,
                   against: [:title, :description],
                   using: {
-                    tsearch: { prefix: true },
-                    gin: { threshold: 0.2 },
+                    trigram: { threshold: 0.2 },
                   }
 
   before_validation :update_searchable_content

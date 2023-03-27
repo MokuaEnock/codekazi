@@ -3,12 +3,12 @@ class JobsController < ApplicationController
 
   def index
     if params[:query].present?
-      @jobs = Job.search_by_title_and_description(params[:query])
+      jobs = Job.search_by_title_and_description(params[:query])
     else
       @jobs = Job.all
     end
 
-    render json: @jobs
+    render json: jobs
   end
 
   def create
